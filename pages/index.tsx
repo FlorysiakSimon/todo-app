@@ -68,10 +68,13 @@ const Home: NextPage = () => {
         {/* <input type="checkbox" className="w-6 h-6 rounded-full"  /> */}
         <input value={input} onKeyDown={search} onChange={(e)=>setInput(e.target.value)} type="text" className="w-[500px] outline-none mt-12 mb-8 p-2 rounded-sm" placeholder='Create a new todo...'/>
         </div>
+
+
         <div className='bg-white rounded-sm'>
           {todoList.length >=1 ? 
             todoList.map((todo,index)=>{
-              return ( <div key={index} className="flex bg-white border-b-[1px] border-gray-300 w-[500px]">
+              return ( <div key={index} className="flex bg-white border-b-[1px] border-gray-300 w-[500px] p-4">
+                <input type="checkbox" className="w-6 h-6 rounded-full checked:bg-red-400 mx-2"></input>
                 <p >{todo}</p>
                   <Image
                   onClick={(e)=>{e.preventDefault();handleDelete(todo)}}
@@ -81,10 +84,26 @@ const Home: NextPage = () => {
                   />
                 </div>
               );
-              
             })
           : undefined}
+          {todoList.length >=1 ? (
+            <div className='flex justify-between m-2'>
+              <div>
+                <p>{todoList.length} items left</p>
+              </div>
+              <div className='flex '>
+                <p className='mx-1'>All</p>
+                <p className='mx-1'>Active</p>
+                <p className='mx-1'>Completed</p>
+              </div>
+              <div>
+                <p>Clear Completed</p>
+              </div>
+            </div>
+            
+          ) : null}
         </div>
+        
       </div>
     </>
   )
