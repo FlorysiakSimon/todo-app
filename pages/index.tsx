@@ -1,42 +1,68 @@
 import type { NextPage } from 'next'
-import { useState,useEffect, MouseEventHandler } from 'react'
+import { useState } from 'react'
 import { useTheme } from 'next-themes'
 import Head from 'next/head'
+import { v4 as uuidv4 } from 'uuid';
 //IMAGES
 import Image from 'next/image'
 import iconMoon from '../public/images/icon-moon.svg'
 import iconSun from '../public/images/icon-sun.svg'
 import iconCross from '../public/images/icon-cross.svg'
-import iconCheck from '../public/images/icon-check.svg'
+import { checkServerIdentity } from 'tls';
 
+interface Todos {
+  id: string;
+  text: string;
+  done: boolean;
+}
 
 const Home: NextPage = () => {
 
   const {theme,setTheme} = useTheme()
   const [input,setInput] = useState<string>("")
-  const [todoList,setTodoList] = useState<string[]>([])
-
-  const handleSubmit = (e:any) => {
-
-    setTodoList([
-      input,
-      ...todoList
-    ])
-    setInput('')
-  }
-
-  const handleDelete = (todo:any) => {
-    const updateArr = todoList.filter(todoItem => todoList.indexOf(todoItem) != todoList.indexOf(todo))
-    
-    setTodoList(updateArr)
-  }
+  const [todoList,setTodoList] = useState<Todos[]>([])
+  const [filterTodo,setFilterTodo] = useState<Todos[]>([])
+  
 
 
-  function search(e:any) {
-    if(e.key === 'Enter') {
-        handleSubmit(e.target.value);        
+  const handleSubmit = (input:string) => {
+    if (input) {
+      const newTasks = [...todoList, { id: uuidv4(),text:input, done: false }];
+      setTodoList(newTasks);
+      setInput('')
     }
   }
+
+  const handleDelete = (todo:Todos) => {
+    const updateArr = todoList.filter(todoItem => todoList.indexOf(todoItem) != todoList.indexOf(todo))
+    setTodoList(updateArr)
+    setFilterTodo(updateArr)
+  }
+
+  const handleDone = (id:any)  => {
+    const _items = todoList.map((todo) => {
+      if (todo.id === id) {
+        return {
+          ...todo,
+          done: !todo.done,
+        };
+      }
+      return todo;
+    });
+    setTodoList(_items);
+    setFilterTodo(_items)
+  };
+
+  const filterDone = () => {
+   const done =  todoList.filter(todo => todo.done === true);
+   setFilterTodo(done)
+  }
+
+  const filterUnDone = () => {
+    const undone = todoList.filter(todo => todo.done === false);
+    setFilterTodo(undone)
+  }
+
 
   return (
     <>
@@ -65,43 +91,74 @@ const Home: NextPage = () => {
 
         </div>
         <div className='flex'>
-        {/* <input type="checkbox" className="w-6 h-6 rounded-full"  /> */}
-        <input value={input} onKeyDown={search} onChange={(e)=>setInput(e.target.value)} type="text" className="w-[500px] outline-none mt-12 mb-8 p-2 rounded-sm" placeholder='Create a new todo...'/>
+        <input 
+          value={input}
+          onKeyDown={(e) => {if(e.key === 'Enter'){handleSubmit(input);}}}
+          onChange={(e)=>setInput(e.target.value)}
+          type="text"
+          className="w-[500px] outline-none mt-12 mb-8 p-4 rounded-lg"
+          placeholder='Create a new todo...'/>
         </div>
 
 
-        <div className='bg-white rounded-sm'>
-          {todoList.length >=1 ? 
-            todoList.map((todo,index)=>{
-              return ( <div key={index} className="flex bg-white border-b-[1px] border-gray-300 w-[500px] p-4">
-                <input type="checkbox" className="w-6 h-6 rounded-full checked:bg-red-400 mx-2"></input>
-                <p >{todo}</p>
-                  <Image
-                  onClick={(e)=>{e.preventDefault();handleDelete(todo)}}
-                  src={iconCross}
-                  className="cursor-pointer"
-                  alt={`delete${todo}`}
-                  />
-                </div>
-              );
-            })
-          : undefined}
-          {todoList.length >=1 ? (
-            <div className='flex justify-between m-2'>
-              <div>
-                <p>{todoList.length} items left</p>
-              </div>
-              <div className='flex '>
-                <p className='mx-1'>All</p>
-                <p className='mx-1'>Active</p>
-                <p className='mx-1'>Completed</p>
-              </div>
-              <div>
-                <p>Clear Completed</p>
+        <div className='wrapper rounded-lg'>
+          {filterTodo.length ?
+          filterTodo.map((todo,index)=>{
+            return ( 
+            <div key={index} className="flex justify-between border-b-[1px] border-gray-300 w-[500px] p-4 todo">
+              <label className='flex align-middle'> 
+                <input checked={todo.done} type="checkbox" id={`todo${index}`}  onClick={handleDone} className="checkbox" onChange={e => {}}></input>
+                <p className={todo.done ? "line-through opacity-50" : ""}>{todo.text}</p>
+              </label>
+              <div className='image'>
+                <Image
+                onClick={()=>{handleDelete(todo)}}
+                src={iconCross}
+                className="cursor-pointer absolute right-1"
+                alt={`delete${todo}`}
+                height={2}
+                width={20}
+                />
               </div>
             </div>
-            
-          ) : null}
+            );
+          })
+          : 
+            todoList.map((todo,index)=>{
+              return ( 
+              <div key={index} className="flex justify-between border-b-[1px] border-gray-300 w-[500px] p-4 todo">
+                <label className='flex align-middle'> 
+                  <input type="checkbox" id={`todo${index}`}  onClick={() => handleDone(todo.id)} className="checkbox"></input>
+                  <p className={todo.done ? "line-through opacity-50" : ""}>{todo.text}</p>
+                </label>
+                <div className='image'>
+                  <Image
+                  onClick={()=>{handleDelete(todo)}}
+                  src={iconCross}
+                  className="cursor-pointer absolute right-1"
+                  alt={`delete${todo}`}
+                  height={2}
+                  width={20}
+                  />
+                </div>
+              </div>
+              );
+            })
+}
+            <div className='flex justify-between p-2 w-[500px] '>
+              <div>
+                <p className='text-filter'>{todoList.length} items left</p>
+              </div>
+              <div className='flex'>
+                <p className='text-filter' onClick={()=> setFilterTodo([])} >All</p>
+                <p className='text-filter' onClick={()=> {filterUnDone()} }>Active</p>
+                <p className='text-filter' onClick={()=> {filterDone()}}>Completed</p>
+              </div>
+              <div>
+                <p className='text-filter'>Clear Completed</p>
+              </div>
+            </div>
+         
         </div>
         
       </div>

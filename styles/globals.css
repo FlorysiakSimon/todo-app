@@ -6,25 +6,51 @@
 
 @layer base {
   [data-theme="light"] {
-    --VeryLightGray: hsl(0, 0%, 98%);
-    --VeryLightGrayishBlue: hsl(236, 33%, 92%);
-    --LightGrayishBlue: hsl(233, 11%, 84%);
-    --DarkGrayishBlue: hsl(236, 9%, 61%);
-    --VeryDarkGrayishBlue: hsl(235, 19%, 35%);
     --bg: hsl(236, 33%, 92%);
     --text: hsl(235, 19%, 35%);
+    --input: hsl(0, 0%, 98%);
+    --footertext: hsl(236, 9%, 61%);
+    --hovertext: hsl(235, 19%, 35%);
   }
 
   [data-theme="dark"] {
-    --VeryDarkBlue: hsl(235, 21%, 11%);
-    --VeryDarkDesaturatedBlue: hsl(235, 24%, 19%);
-    --LightGrayishBlue: hsl(234, 39%, 85%);
-    --LightGrayishBluehover: hsl(236, 33%, 92%);
-    --DarkGrayishBlue: hsl(234, 11%, 52%);
-    --VeryDarkGrayishBlue: hsl(233, 14%, 35%);
-    --VeryDarkGrayishBlue: hsl(237, 14%, 26%);
-    --bg: hsl(235, 24%, 19%);
-    --text: hsl(234, 39%, 85%);
+    --bg: hsl(235, 21%, 11%);
+    --text: hsl(233, 11%, 84%);
+    --input: hsl(235, 24%, 19%);
+    --footertext: hsl(234, 11%, 52%);
+    --hovertext: hsl(236, 33%, 92%);
+  }
+}
+
+@layer components {
+  .wrapper {
+    background-color: var(--input) !important;
+    @apply bg-white rounded-sm;
+  }
+  .checkbox {
+    width: 1.3em;
+    height: 1.3em;
+    background-color: white;
+    border-radius: 50%;
+    vertical-align: middle;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+    margin-right: 1em;
+  }
+  .text-filter {
+    color: var(--footertext);
+    @apply mx-1 cursor-pointer;
+  }
+  .text-filter:hover {
+    color: var(--hovertext);
+  }
+  .image {
+    display: none;
+  }
+  .todo:hover .image {
+    display: flex;
   }
 }
 
@@ -36,17 +62,20 @@ body {
   color: var(--text);
   font-weight: 700;
   font-family: Josefin, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
+  transition: all 0.5s ease-out;
 }
 
 * {
   box-sizing: border-box;
 }
 
+input {
+  background-color: var(--input);
+}
+
 input:checked {
-  border-radius: 50%;
+  background: url("../public/images/icon-check.svg"),
+    linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+  background-repeat: no-repeat;
+  background-position: center;
 }
