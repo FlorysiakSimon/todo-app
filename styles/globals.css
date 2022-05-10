@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 @layer base {
-  [data-theme="light"] {
+  [class="light"] {
     --bg: hsl(236, 33%, 92%);
     --text: hsl(235, 19%, 35%);
     --input: hsl(0, 0%, 98%);
@@ -13,7 +13,7 @@
     --hovertext: hsl(235, 19%, 35%);
   }
 
-  [data-theme="dark"] {
+  [class="dark"] {
     --bg: hsl(235, 21%, 11%);
     --text: hsl(233, 11%, 84%);
     --input: hsl(235, 24%, 19%);
@@ -25,7 +25,7 @@
 @layer components {
   .wrapper {
     background-color: var(--input) !important;
-    @apply bg-white rounded-sm;
+    @apply rounded-sm;
   }
   .checkbox {
     width: 1.3em;
@@ -41,7 +41,7 @@
   }
   .text-filter {
     color: var(--footertext);
-    @apply mx-1 cursor-pointer;
+    @apply mx-1 cursor-pointer text-sm;
   }
   .text-filter:hover {
     color: var(--hovertext);
@@ -78,4 +78,44 @@ input:checked {
     linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.light body .background {
+  background: url("../public/images/bg-desktop-light.jpg") no-repeat;
+  background-size: cover;
+  width: 100vw;
+  height: 40vh;
+}
+.dark body .background {
+  background: url("../public/images/bg-desktop-dark.jpg") no-repeat;
+  background-size: cover;
+  width: 100vw;
+  height: 40vh;
+}
+
+@media (max-width: 520px) {
+  .md {
+    width: 90%;
+  }
+  .mdinput {
+    width: 100%;
+  }
+  .light body .background {
+    background: url("../public/images/bg-mobile-light.jpg") no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 40vh;
+  }
+  .dark body .background {
+    background: url("../public/images/bg-mobile-dark.jpg") no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 40vh;
+  }
+  .filterdata {
+    display: none;
+  }
+  .displayfilterdata {
+    display: flex;
+  }
 }

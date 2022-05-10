@@ -18,7 +18,6 @@ Users should be able to:
 - Filter by all/active/complete todos
 - Clear all completed todos
 - Toggle light and dark mode
-- **Bonus**: Drag and drop to reorder items on the list
 
 ## Prerequisites
 
@@ -29,6 +28,8 @@ Users should be able to:
 - [next.js](https://nextjs.org//)
 - [typescript](https://www.typescriptlang.org/)
 - [tailwind](https://tailwindcss.com/)
+- [next-themes](https://github.com/pacocoursey/next-themes)
+- [uuid](https://www.npmjs.com/package/uuid)
 
 ## Installation
 

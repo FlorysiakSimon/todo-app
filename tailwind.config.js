@@ -1,4 +1,18 @@
 module.exports = {
+  screens: {
+    '2xl': { max: '1535px' },
+    xl: { max: '1279px' },
+    lg: { max: '1023px' },
+    md: { max: '767px' },
+    sm: { max: '639px' },
+
+    minsm: { min: '640px' },
+    minmd: { min: '768px' },
+    minlg: { min: '1024px' },
+    minxl: { min: '1280px' },
+    min2xl: { min: '1536px' },
+  },
+  darkMode: 'class',
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
@@ -11,23 +25,13 @@ module.exports = {
     backgroundImage: {
       "desktop-light": "url('/images/bg-desktop-light.jpg')",
       "desktop-dark": "url('/images/bg-desktop-dark.jpg')",
+      "phone-light":"url('/images/bg-mobile-light.jpg')",
+      "phone-dark":"url('/images/bg-mobile-light.jpg')",
     },
   },
   colors:{
     "bright-blue":'hsl(220, 98%, 61%)',
     "check-bg":'linear-gradient hsl(192, 100%, 67%) to hsl(280, 87%, 65%)',
-    'lm-Light-Gray': 'hsl(0, 0%, 98%)',
-    'lm-Light-Grayish-Blue': 'hsl(236, 33%, 92%)',
-    'lm-Grayish-Blue': 'hsl(233, 11%, 84%)',
-    'lm-Grayish-Blue': 'hsl(236, 9%, 61%)',
-    'lm-Dark-Grayish-Blue': 'hsl(235, 19%, 35%)',
-    'dm-Dark-Blue': 'hsl(235, 21%, 11%)',
-    'dm-Dark-Desaturated Blue': 'hsl(235, 24%, 19%)',
-    'dm-Grayish-Blue': 'hsl(234, 39%, 85%)',
-    'dm-Grayish-Blue-(hover)': 'hsl(236, 33%, 92%)',
-    'dm-Grayish-Blue': 'hsl(234, 11%, 52%)',
-    'dm-Dark-Grayish-Blue': 'hsl(233, 14%, 35%)',
-    'dm-Dark-Grayish-Blue': 'hsl(237, 14%, 26%)',
   },
   plugins: [],
 }
