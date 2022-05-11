@@ -7,8 +7,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { Task } from '../components/Task';
 //IMAGES
 import Image from 'next/image'
-import iconMoon from '../public/images/icon-moon.svg'
-import iconSun from '../public/images/icon-sun.svg'
+import iconMoon from '../images/icon-moon.svg'
+import iconSun from '../images/icon-sun.svg'
 
 
 export interface Todos {

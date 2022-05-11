@@ -1,6 +1,6 @@
 import { Todos } from '../pages/index';
 import Image from 'next/image'
-import iconCross from '../public/images/icon-cross.svg'
+import iconCross from '../images/icon-cross.svg'
 
 type Props = {
     todo:Todos;

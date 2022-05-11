@@ -74,20 +74,20 @@ input {
 }
 
 input:checked {
-  background: url("../public/images/icon-check.svg"),
+  background: url("../images/icon-check.svg"),
     linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .light body .background {
-  background: url("../public/images/bg-desktop-light.jpg") no-repeat;
+  background: url("../images/bg-desktop-light.jpg") no-repeat;
   background-size: cover;
   width: 100vw;
   height: 40vh;
 }
 .dark body .background {
-  background: url("../public/images/bg-desktop-dark.jpg") no-repeat;
+  background: url("../images/bg-desktop-dark.jpg") no-repeat;
   background-size: cover;
   width: 100vw;
   height: 40vh;
@@ -101,13 +101,13 @@ input:checked {
     width: 100%;
   }
   .light body .background {
-    background: url("../public/images/bg-mobile-light.jpg") no-repeat;
+    background: url("../images/bg-mobile-light.jpg") no-repeat;
     background-size: cover;
     width: 100vw;
     height: 40vh;
   }
   .dark body .background {
-    background: url("../public/images/bg-mobile-dark.jpg") no-repeat;
+    background: url("../images/bg-mobile-dark.jpg") no-repeat;
     background-size: cover;
     width: 100vw;
     height: 40vh;
