@@ -23,7 +23,8 @@ const Home: NextPage = () => {
   const [input,setInput] = useState<string>("")
   const [todoList,setTodoList] = useState<Todos[]>([])
   const [filterTodo,setFilterTodo] = useState<Todos[]>([])
-  
+  const [selected,setSelected] = useState<string>("all")
+
   useEffect(() => {
     setFilterTodo(todoList)
   }, [todoList]);
@@ -129,9 +130,21 @@ const Home: NextPage = () => {
                 <p className='text-filter'>{todoList.length} items left</p>
               </div>
               <div className='flex filterdata'>
-                <p className='text-filter' onClick={()=> setFilterTodo(todoList)} >All</p>
-                <p className='text-filter' onClick={()=> {filterUnDone();}}>Active</p>
-                <p className='text-filter' onClick={()=> {filterDone()}}>Completed</p>
+                <p 
+                  className={selected === "all" ? "text-filter text-[#3F7EFD]" : "text-filter"} 
+                  onClick={()=> {setFilterTodo(todoList);setSelected('all')}} >
+                  All
+                </p>
+                <p 
+                className={selected === "active" ? "text-filter text-[#3F7EFD]" : "text-filter"} 
+                onClick={()=> {filterUnDone();setSelected('active')}}>
+                  Active
+                </p>
+                <p 
+                className={selected === "completed" ? "text-filter text-[#3F7EFD]" : "text-filter"} 
+                onClick={()=> {filterDone();setSelected('completed')}}>
+                  Completed
+                </p>
               </div>
               <div>
                 <p className='text-filter' onClick={()=> removeDone()}>Clear Completed</p>
@@ -142,9 +155,21 @@ const Home: NextPage = () => {
         </div>
         <div className='wrapper displayfilterdata hidden md m-auto p-2 mt-4 w-[500px] rounded-lg'>
           <div className='flex m-auto '>
-            <p className='text-filter text-sm' onClick={()=> setFilterTodo(todoList)} >All</p>
-            <p className='text-filter' onClick={()=> {filterUnDone();}}>Active</p>
-            <p className='text-filter' onClick={()=> {filterDone()}}>Completed</p>
+            <p 
+              className={selected === "all" ? "text-filter text-[#3F7EFD]" : "text-filter"} 
+              onClick={()=> {setFilterTodo(todoList);setSelected('all')}} >
+              All
+            </p>
+            <p 
+            className={selected === "active" ? "text-filter text-[#3F7EFD]" : "text-filter"} 
+            onClick={()=> {filterUnDone();setSelected('active')}}>
+              Active
+            </p>
+            <p 
+            className={selected === "completed" ? "text-filter text-[#3F7EFD]" : "text-filter"} 
+            onClick={()=> {filterDone();setSelected('completed')}}>
+              Completed
+            </p>
           </div>     
         </div>
     </>

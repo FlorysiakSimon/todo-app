@@ -30,7 +30,7 @@ module.exports = {
     },
   },
   colors:{
-    "bright-blue":'hsl(220, 98%, 61%)',
+    "bright-blue":'#3F7EFD',
     "check-bg":'linear-gradient hsl(192, 100%, 67%) to hsl(280, 87%, 65%)',
   },
   plugins: [],
